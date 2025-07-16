@@ -1,13 +1,18 @@
 
 # Python WebSocket Chatbot Server and Client
-![Demo](assets/demo.gif)
+
 This project contains a WebSocket-based chatbot server (using Chai API) and a Python client script for interactive chat.
+
 
 **Features:**
 - Supports multiple simultaneous client connections (each tracked by user name)
 - User name is sent in WebSocket headers and validated by the server
 - rate limiting per user
 - Chat history is kept per session (in-memory)
+
+<p align="center">
+  <img src="assets/demo.gif" alt="Demo" />
+</p>
 
 ## Notes
 - Logs are written to the `logs/` directory.
