@@ -18,18 +18,15 @@ This project contains a WebSocket-based chatbot server (using Chai API) and a Py
 - install dependencies in requirements.txt
 
 ## Setup
-1. (Recommended) Create and activate a Python virtual environment:
-   python3 -m venv .venv
-   source .venv/bin/activate  # On Windows use: .venv\Scripts\activate
-2. Install dependencies:
-   pip install -r requirements.txt
-3. Updated a `dev.env` file in the project root.
-   API_URL=your_chatbot_url
-   API_KEY=your_api_key_here
-   RATE_LIMIT_MAX_CALLS=100 # number of call
-   RATE_LIMIT_PERIOD=60 # seconds
-4. (Optional but recommended) Install development tools for linting and formatting:
-   pip install flake8 black isort autoflake pytest pytest-asyncio
+1. Run a install script
+```
+install_mac.sh
+```
+2. Updated a `dev.env` file in the project root.
+- API_URL=your_chatbot_url 
+- API_KEY=your_api_key_here
+- RATE_LIMIT_MAX_CALLS=100 # number of call
+- RATE_LIMIT_PERIOD=60 # seconds
 
 ## Running the Server
 - Start the WebSocket server:
