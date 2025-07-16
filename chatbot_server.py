@@ -59,6 +59,7 @@ async def handle_connection(websocket) -> None:
             LOGGER.info(f"User input from {user_name}: {user_input}")
             CHAT_HISTORY[user_name].append({"sender": user_name, "message": user_input})
             response = chai_client.send_chat(
+                user_name=user_name,
                 chat_history=CHAT_HISTORY[user_name],
             )
 

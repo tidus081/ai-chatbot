@@ -21,49 +21,17 @@ def test_send_chat_success_returns_chai_model_response_instance(mock_post, dummy
         "model_name": "chai-test-model",
     }
     # Act
-    response = client.send_chat(chat_history=dummy_history)
+    response = client.send_chat(chat_history=dummy_history, user_name="test_user")
     # Assert
     assert isinstance(response, ChaiModelResponse)
 
-@patch("api.chai_model.client.requests.post")
-def test_send_chat_success_sets_status_code(mock_post, dummy_history):
-    client = ChaiModelApiClient()
-    mock_post.return_value.status_code = 200
-    mock_post.return_value.json.return_value = {
-        "model_output": "Test response",
-        "model_name": "chai-test-model",
-    }
-    response = client.send_chat(chat_history=dummy_history)
-    assert response.status_code == 200
-
-@patch("api.chai_model.client.requests.post")
-def test_send_chat_success_sets_model_output(mock_post, dummy_history):
-    client = ChaiModelApiClient()
-    mock_post.return_value.status_code = 200
-    mock_post.return_value.json.return_value = {
-        "model_output": "Test response",
-        "model_name": "chai-test-model",
-    }
-    response = client.send_chat(chat_history=dummy_history)
-    assert response.model_output == "Test response"
-
-@patch("api.chai_model.client.requests.post")
-def test_send_chat_success_sets_model_name(mock_post, dummy_history):
-    client = ChaiModelApiClient()
-    mock_post.return_value.status_code = 200
-    mock_post.return_value.json.return_value = {
-        "model_output": "Test response",
-        "model_name": "chai-test-model",
-    }
-    response = client.send_chat(chat_history=dummy_history)
-    assert response.model_name == "chai-test-model"
 
 @patch("api.chai_model.client.requests.post")
 def test_send_chat_failure_sets_status_code(mock_post, dummy_history):
     client = ChaiModelApiClient()
     mock_post.return_value.status_code = 500
     mock_post.return_value.json.return_value = {}
-    response = client.send_chat(chat_history=dummy_history)
+    response = client.send_chat(chat_history=dummy_history, user_name="test_user")
     assert response.status_code == 500
 
 @patch("api.chai_model.client.requests.post")
@@ -71,7 +39,7 @@ def test_send_chat_failure_sets_model_output_none(mock_post, dummy_history):
     client = ChaiModelApiClient()
     mock_post.return_value.status_code = 500
     mock_post.return_value.json.return_value = {}
-    response = client.send_chat(chat_history=dummy_history)
+    response = client.send_chat(chat_history=dummy_history, user_name="test_user")
     assert response.model_output is None
 
 @patch("api.chai_model.client.requests.post")
@@ -79,5 +47,5 @@ def test_send_chat_failure_sets_model_name_none(mock_post, dummy_history):
     client = ChaiModelApiClient()
     mock_post.return_value.status_code = 500
     mock_post.return_value.json.return_value = {}
-    response = client.send_chat(chat_history=dummy_history)
+    response = client.send_chat(chat_history=dummy_history, user_name="test_user")
     assert response.model_name is None

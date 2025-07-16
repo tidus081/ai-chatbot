@@ -23,32 +23,42 @@ This project contains a WebSocket-based chatbot server (using Chai API) and a Py
    source .venv/bin/activate  # On Windows use: .venv\Scripts\activate
 2. Install dependencies:
    pip install -r requirements.txt
-3. Updated a `dev.env` file in the project root if needed:
+3. Updated a `dev.env` file in the project root.
    API_URL=your_chatbot_url
    API_KEY=your_api_key_here
+   RATE_LIMIT_MAX_CALLS=100 # number of call
+   RATE_LIMIT_PERIOD=60 # seconds
 4. (Optional but recommended) Install development tools for linting and formatting:
    pip install flake8 black isort autoflake pytest pytest-asyncio
 
 ## Running the Server
 - Start the WebSocket server:
-   source .venv/bin/activate  # if you didn't activate python virtual env
-   'python chatbot_server.py'
+   ```
+   source .venv/bin/activate
+   python chatbot_server.py
+   ```
    The server will listen on `ws://localhost:8765`.
-The server requires the client to send a `X-User-Name` header for each connection.
 
 ## Running the Client
 In a separate terminal (and with the virtual environment activated), run:
-source .venv/bin/activate # if you didn't activate python virtual env
+```
+source .venv/bin/activate 
 python chatbot_client.py
+```
 You will be prompted for your user name and whether to start a new chat or continue an existing one.
 Type your message and press Enter to chat. Type `exit` or `quit` to end the session.
 
 
 ## Managing the Server in the Background
-To check if the server is running and kill it (if needed):
+You could run the server in the backgroud and run a client on same terminal. 
+```
+python chatbot_client.py &
+```
+To check if the server is running and kill it
+```
 lsof -i :8765
 kill <PID>  # e.g. kill 7011
-
+```
 
 ## Run the tests
 Tests are written using `pytest` and organized in the `tests/` directory.

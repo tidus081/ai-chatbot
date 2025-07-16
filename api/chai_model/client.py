@@ -1,15 +1,9 @@
 import os
 import time
-from typing import Dict, List, Optional
-
 import requests
-from dotenv import load_dotenv
-
+from typing import Dict, List, Optional
 from api.chai_model.response import ChaiModelResponse
 from utils.logger_util import LoggerUtil
-
-load_dotenv("dev.env")
-os.getenv("USER_NAME", "User")
 
 
 class ChaiModelApiClient:
@@ -18,13 +12,11 @@ class ChaiModelApiClient:
         api_url: Optional[str] = None,
         api_key: Optional[str] = None,
         bot_name: Optional[str] = None,
-        user_name: Optional[str] = None,
         prompt: Optional[str] = None,
     ):
         self.api_url = api_url or os.getenv("API_URL")
         self.api_key = api_key or os.getenv("API_KEY")
         self.bot_name = bot_name or os.getenv("BOT_NAME", "Bot")
-        self.user_name = user_name or os.getenv("USER_NAME")
         self.prompt = prompt or os.getenv("PROMPT")
         self.logger = LoggerUtil.get_logger("chai_model_api_client")
         self._validate()
@@ -35,15 +27,13 @@ class ChaiModelApiClient:
             missing.append("API_URL")
         if not self.api_key:
             missing.append("API_KEY")
-        if not self.user_name:
-            missing.append("USER_NAME")
         if not self.prompt:
             missing.append("PROMPT")
         if missing:
             raise Exception(f"Missing required configuration(s): {', '.join(missing)}")
 
     def _get_headers_and_payload(
-        self, chat_history: List[Dict[str, str]], memory: Optional[str] = ""
+        self, user_name: str, chat_history: List[Dict[str, str]]
     ) -> tuple[dict[str, str], dict[str, object]]:
         headers = {
             "Authorization": f"Bearer {self.api_key}",
@@ -52,16 +42,19 @@ class ChaiModelApiClient:
         payload = {
             "prompt": self.prompt,
             "bot_name": self.bot_name,
-            "user_name": self.user_name,
+            "user_name": user_name,
             "chat_history": chat_history,
-            "memory": memory if memory is not None else "",  # Deprecated field but required key.
+            "memory": "",  # Deprecated field but required key.
         }
         return headers, payload
     
     def send_chat(
-        self, chat_history: List[Dict[str, str]], memory: Optional[str] = ""
+        self, user_name: str, chat_history: List[Dict[str, str]]
     ) -> ChaiModelResponse:
-        headers, payload = self._get_headers_and_payload(chat_history, memory)
+        headers, payload = self._get_headers_and_payload(
+            user_name=user_name,
+            chat_history=chat_history
+            )
         max_attempts = 3
         attempt = 0
         while attempt <= max_attempts:
