@@ -1,7 +1,6 @@
-
 import pytest
 from unittest.mock import patch
-from chai_model_api.client import ChaiModelApiClient
+from api.chai_model.client import ChaiModelApiClient
 
 def test_missing_config_raises():
     with patch("os.getenv", side_effect=lambda k, d=None: None):

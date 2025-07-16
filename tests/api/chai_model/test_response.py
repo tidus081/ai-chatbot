@@ -1,4 +1,4 @@
-from chai_model_api.response import ChaiModelResponse
+from api.chai_model.response import ChaiModelResponse
 
 def test_init_sets_fields():
     # Arrange
@@ -20,3 +20,4 @@ def test_optional_fields_are_none():
     assert resp.status_code == 404
     assert resp.model_output is None
     assert resp.model_name is None
+# moved from tests/chai_model_api/test_response.py

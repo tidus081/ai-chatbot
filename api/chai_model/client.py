@@ -5,7 +5,7 @@ from typing import Dict, List, Optional
 import requests
 from dotenv import load_dotenv
 
-from chai_model_api.response import ChaiModelResponse
+from api.chai_model.response import ChaiModelResponse
 from utils.logger_util import LoggerUtil
 
 load_dotenv("dev.env")

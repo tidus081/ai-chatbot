@@ -7,7 +7,7 @@ from urllib.parse import urlparse
 from typing import Any, Optional
 from dotenv import load_dotenv
 
-from chai_model_api.client import ChaiModelApiClient
+from api.chai_model.client import ChaiModelApiClient
 from utils.logger_util import LoggerUtil
 from utils.user_rate_limiter_util import UserRateLimiter
 from utils.chatbot_server_utils import parse_headers, handle_chat_history
@@ -30,10 +30,10 @@ LOGGER = LoggerUtil.get_logger("chatbot_server")
 async def handle_connection(websocket) -> None:
     try:
         # Fetch user_name and start_new_chat from headers
-        user_name, start_new_chat = parse_headers(websocket.request.headers, logger)
+        user_name, start_new_chat = parse_headers(websocket.request.headers, LOGGER)
 
         # Handle chat history based on header
-        handle_chat_history(user_name, start_new_chat, CHAT_HISTORY, logger)
+        handle_chat_history(user_name, start_new_chat, CHAT_HISTORY, LOGGER)
 
         chai_client = ChaiModelApiClient()
         user_rate_limiter = UserRateLimiter(RATE_LIMIT_MAX_CALLS, RATE_LIMIT_PERIOD)

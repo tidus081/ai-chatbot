@@ -24,17 +24,16 @@ This project contains a WebSocket-based chatbot server (using Chai API) and a Py
 2. Install dependencies:
    pip install -r requirements.txt
 3. Updated a `dev.env` file in the project root if needed:
-   # dev.env
    API_URL=your_chatbot_url
    API_KEY=your_api_key_here
 4. (Optional but recommended) Install development tools for linting and formatting:
    pip install flake8 black isort autoflake pytest pytest-asyncio
 
 ## Running the Server
-Start the WebSocket server:
-source .venv/bin/activate  # if you didn't activate python virtual env
-python chatbot_server.py
-The server will listen on `ws://localhost:8765`.
+- Start the WebSocket server:
+   source .venv/bin/activate  # if you didn't activate python virtual env
+   'python chatbot_server.py'
+   The server will listen on `ws://localhost:8765`.
 The server requires the client to send a `X-User-Name` header for each connection.
 
 ## Running the Client
