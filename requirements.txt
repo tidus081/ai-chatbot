@@ -1,0 +1,10 @@
+requests
+websockets
+python-dotenv
+urllib3<2
+pytest
+pytest-asyncio
+flake8
+black
+isort
+autoflake
