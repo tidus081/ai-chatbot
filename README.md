@@ -1,5 +1,6 @@
 
 # Python WebSocket Chatbot Server and Client
+![Demo](assets/demo.gif)
 This project contains a WebSocket-based chatbot server (using Chai API) and a Python client script for interactive chat.
 
 **Features:**
