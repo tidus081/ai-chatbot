@@ -2,8 +2,6 @@
 __pycache__/
 *.pyc
 logs/
-.env
-*.env
 .DS_Store
 .vscode/
 .github/
