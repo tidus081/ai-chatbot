@@ -18,14 +18,19 @@ BOT_NAME = os.getenv("BOT_NAME", "Bot")
 CHATBOT_SERVER_URL = os.getenv("CHATBOT_SERVER_URL", "ws://localhost:8765")
 PING_INTERVAL = int(os.getenv("PING_INTERVAL", "60"))
 PING_TIMEOUT = int(os.getenv("PING_TIMEOUT", "60"))
+API_URL = os.getenv("API_URL")
+API_KEY = os.getenv("API_KEY")
+BOT_NAME = os.getenv("BOT_NAME", "Bot")
+PROMPT = os.getenv("PROMPT")
 RATE_LIMIT_MAX_CALLS = int(os.getenv("RATE_LIMIT_MAX_CALLS", 10))  # e.g. 10
 RATE_LIMIT_PERIOD = int(
     os.getenv("RATE_LIMIT_PERIOD", 3600)
 )  # e.g. 3600 seconds (1 hour)
  # TODO : should be stored in a more robust cache
-CHAT_HISTORY = {}  # key: user_name, value: chat history
 
+CHAT_HISTORY = {}  # key: user_name, value: chat history
 LOGGER = LoggerUtil.get_logger("chatbot_server")
+
 
 async def handle_connection(websocket) -> None:
     try:
@@ -35,7 +40,12 @@ async def handle_connection(websocket) -> None:
         # Handle chat history based on header
         handle_chat_history(user_name, start_new_chat, CHAT_HISTORY, LOGGER)
 
-        chai_client = ChaiModelApiClient()
+        chai_client = ChaiModelApiClient(
+            api_url=API_URL,
+            api_key=API_KEY,
+            bot_name=BOT_NAME,
+            prompt=PROMPT,
+        )
         user_rate_limiter = UserRateLimiter(RATE_LIMIT_MAX_CALLS, RATE_LIMIT_PERIOD)
 
     except ValueError as e:

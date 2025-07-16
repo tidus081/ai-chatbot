@@ -14,7 +14,12 @@ def dummy_history():
 @patch("api.chai_model.client.requests.post")
 def test_send_chat_success_returns_chai_model_response_instance(mock_post, dummy_history):
     # Arrange
-    client = ChaiModelApiClient()
+    client = ChaiModelApiClient(
+        api_url="http://test-url",
+        api_key="test-key",
+        bot_name="test-bot",
+        prompt="test-prompt",
+    )
     mock_post.return_value.status_code = 200
     mock_post.return_value.json.return_value = {
         "model_output": "Test response",
@@ -28,7 +33,12 @@ def test_send_chat_success_returns_chai_model_response_instance(mock_post, dummy
 
 @patch("api.chai_model.client.requests.post")
 def test_send_chat_failure_sets_status_code(mock_post, dummy_history):
-    client = ChaiModelApiClient()
+    client = ChaiModelApiClient(
+        api_url="http://test-url",
+        api_key="test-key",
+        bot_name="test-bot",
+        prompt="test-prompt",
+    )
     mock_post.return_value.status_code = 500
     mock_post.return_value.json.return_value = {}
     response = client.send_chat(chat_history=dummy_history, user_name="test_user")
@@ -36,7 +46,12 @@ def test_send_chat_failure_sets_status_code(mock_post, dummy_history):
 
 @patch("api.chai_model.client.requests.post")
 def test_send_chat_failure_sets_model_output_none(mock_post, dummy_history):
-    client = ChaiModelApiClient()
+    client = ChaiModelApiClient(
+        api_url="http://test-url",
+        api_key="test-key",
+        bot_name="test-bot",
+        prompt="test-prompt",
+    )
     mock_post.return_value.status_code = 500
     mock_post.return_value.json.return_value = {}
     response = client.send_chat(chat_history=dummy_history, user_name="test_user")
@@ -44,7 +59,12 @@ def test_send_chat_failure_sets_model_output_none(mock_post, dummy_history):
 
 @patch("api.chai_model.client.requests.post")
 def test_send_chat_failure_sets_model_name_none(mock_post, dummy_history):
-    client = ChaiModelApiClient()
+    client = ChaiModelApiClient(
+        api_url="http://test-url",
+        api_key="test-key",
+        bot_name="test-bot",
+        prompt="test-prompt",
+    )
     mock_post.return_value.status_code = 500
     mock_post.return_value.json.return_value = {}
     response = client.send_chat(chat_history=dummy_history, user_name="test_user")

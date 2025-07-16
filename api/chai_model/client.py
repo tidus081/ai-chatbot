@@ -1,36 +1,23 @@
-import os
+
 import time
 import requests
-from typing import Dict, List, Optional
+from typing import Dict, List
 from api.chai_model.response import ChaiModelResponse
 from utils.logger_util import LoggerUtil
-
 
 class ChaiModelApiClient:
     def __init__(
         self,
-        api_url: Optional[str] = None,
-        api_key: Optional[str] = None,
-        bot_name: Optional[str] = None,
-        prompt: Optional[str] = None,
+        api_url: str,
+        api_key: str,
+        bot_name: str,
+        prompt: str,
     ):
-        self.api_url = api_url or os.getenv("API_URL")
-        self.api_key = api_key or os.getenv("API_KEY")
-        self.bot_name = bot_name or os.getenv("BOT_NAME", "Bot")
-        self.prompt = prompt or os.getenv("PROMPT")
+        self.api_url = api_url
+        self.api_key = api_key
+        self.bot_name = bot_name
+        self.prompt = prompt
         self.logger = LoggerUtil.get_logger("chai_model_api_client")
-        self._validate()
-
-    def _validate(self) -> None:
-        missing = []
-        if not self.api_url:
-            missing.append("API_URL")
-        if not self.api_key:
-            missing.append("API_KEY")
-        if not self.prompt:
-            missing.append("PROMPT")
-        if missing:
-            raise Exception(f"Missing required configuration(s): {', '.join(missing)}")
 
     def _get_headers_and_payload(
         self, user_name: str, chat_history: List[Dict[str, str]]
