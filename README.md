@@ -28,7 +28,7 @@ This project contains a WebSocket-based chatbot server (using Chai API) and a Py
 ```
 install_mac.sh
 ```
-2. Updated a `dev.env` file in the project root.
+2. Create a `dev.env` file in the project root.
 - API_URL=your_chatbot_url 
 - API_KEY=your_api_key_here
 - RATE_LIMIT_MAX_CALLS=100 # number of call
